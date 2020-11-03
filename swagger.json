@@ -1,0 +1,100 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Welcome",
+        "version": "1.0.0",
+        "description": "Welcome to basice setup swagger",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "contact": {
+            "name": "Samiul Islam",
+            "email": "samiulislamw.w.w@gmail.com",
+            "url": "https://www.facebook.com/profile.php?id=100007348686487"
+        }
+    },
+    "servers": [
+        {
+            "url": "localhost:3000/",
+            "description": "Local server"
+        }
+    ],
+    "paths": {
+        "/student/": {
+            "post": {
+                "tags": [
+                    "Demo"
+                ],
+                "description": "Create Student",
+                "operationId": "createUsers",
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "header",
+                        "schema": {},
+                        "required": true
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "tyep": "integer",
+                            "default": 1
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "default": "asc"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users were obtained",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StudentDTO": {
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "required": true,
+                        "example": "Samiul"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "islam"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "example": "male"
+                    },
+                    "schoolName": {
+                        "type": "string",
+                        "example": "Al-haz amin uddin hight school"
+                    }
+                }
+            }
+        }
+    }
+}
