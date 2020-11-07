@@ -1,97 +1,208 @@
 {
-    "openapi": "3.0.1",
+    "openapi": "3.0.0",
     "info": {
-        "title": "Welcome",
-        "version": "1.0.0",
-        "description": "Welcome to basice setup swagger",
-        "license": {
-            "name": "Apache 2.0",
-            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-        },
+        "title": "Back-End Rest Demo",
+        "description": "This is make for a simple demo as i need to use ",
+        "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Samiul Islam",
-            "email": "samiulislamw.w.w@gmail.com",
-            "url": "https://www.facebook.com/profile.php?id=100007348686487"
-        }
+            "email": "samiulislamw.w.w@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
     },
-    "servers": [
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    },
+    "tags": [
         {
-            "url": "localhost:3000/",
-            "description": "Local server"
+            "name": "demo",
+            "description": "Demo api document"
         }
     ],
     "paths": {
-        "/student/": {
+        "/demo/create": {
             "post": {
                 "tags": [
-                    "Demo"
+                    "demo"
                 ],
-                "description": "Create Student",
-                "operationId": "createUsers",
+                "summary": "Create Operation Demo",
+                "description": "this is can create a Demo",
+                "operationId": "createDemo",
+                "requestBody": {
+                    "description": "Create Demo Model Object",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DemoDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/demo/all": {
+            "get": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "Get all demo",
+                "description": "a user can get all demo",
+                "operationId": "getDemo",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DemoDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/demo/{id}": {
+            "get": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "Find demo by id",
+                "description": "A user can find one demo by her id",
+                "operationId": "findDemoOne",
                 "parameters": [
                     {
-                        "name": "Id",
-                        "in": "header",
-                        "schema": {},
-                        "required": true
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
                         "schema": {
-                            "tyep": "integer",
-                            "default": 1
-                        },
-                        "required": false
-                    },
-                    {
-                        "name": "orderBy",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "asc",
-                                "desc"
-                            ],
-                            "default": "asc"
-                        },
-                        "required": false
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Users were obtained",
+                        "description": "successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/DemoDTO"
+                                }
                             }
                         }
                     }
+                }
+            }
+        },
+        "/demo/update/{id}": {
+            "patch": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "update single demo",
+                "discription": "a user can update single demo",
+                "operationId": "updateDemo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "you can update any of single column data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "age": {
+                                        "type": "integer"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/demo/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "Delete user",
+                "discription": "a user can delete spacific demo",
+                "operationId": "deleteDemo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {}
                 }
             }
         }
     },
     "components": {
         "schemas": {
-            "StudentDTO": {
+            "DemoDTO": {
+                "required": [
+                    "firstName",
+                    "email"
+                ],
                 "type": "object",
                 "properties": {
                     "firstName": {
-                        "type": "string",
-                        "required": true,
-                        "example": "Samiul"
+                        "type": "string"
                     },
                     "lastName": {
-                        "type": "string",
-                        "example": "islam"
+                        "type": "string"
                     },
-                    "gender": {
-                        "type": "string",
-                        "example": "male"
+                    "email": {
+                        "type": "string"
                     },
-                    "schoolName": {
-                        "type": "string",
-                        "example": "Al-haz amin uddin hight school"
+                    "age": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
                     }
                 }
             }

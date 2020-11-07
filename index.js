@@ -14,6 +14,7 @@ const port = process.env.PORT
 app.use(cors())
 app.use(express.json())
 app.use('/student', require('./src/module/student/student.controller'));
+app.use('/demo', require('./src/module/demo/demo.controller'));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /** end middleware */
