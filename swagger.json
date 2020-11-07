@@ -53,6 +53,32 @@
                 "x-codegen-request-body-name": "body"
             }
         },
+        "/demo/create/bulk": {
+            "post": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "multiple create demo",
+                "description": "A user can create multiple demo in one request",
+                "operationId": "demoBulkInsert",
+                "requestBody": {
+                    "description": "You give a array of demo in here ",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DemoDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {}
+                }
+            }
+        },
         "/demo/all": {
             "get": {
                 "tags": [

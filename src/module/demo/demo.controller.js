@@ -26,6 +26,20 @@ DemoRoutes.post('/create', async (req, res) => {
     }
 })
 
+// multiple create 
+
+DemoRoutes.post("/create/bulk", async (req, res) => {
+    try {
+        await Demo.insertMany(req.body).then((allDemo) => {
+            res.status(201).send(allDemo);
+        }).catch(() => {
+            res.status(400).send({ message: 'Bad Request' })
+        })
+    } catch (e) {
+        res.status(500).send({ message: 'Internal Server Error' })
+    }
+})
+
 // read
 
 DemoRoutes.get('/all', async (req, res) => {
