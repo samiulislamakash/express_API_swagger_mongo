@@ -22,6 +22,10 @@
         {
             "name": "demo",
             "description": "Demo api document"
+        },
+        {
+            "name": "image",
+            "description": "Demo image upload document"
         }
     ],
     "paths": {
@@ -202,6 +206,35 @@
                 ],
                 "responses": {
                     "200": {}
+                }
+            }
+        },
+        "/image/create": {
+            "post": {
+                "tags": [
+                    "image"
+                ],
+                "summary": "image upload",
+                "description": "any one can update image ",
+                "operationId": "imageUpload",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {}
                 }
             }
         }

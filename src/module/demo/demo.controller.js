@@ -96,7 +96,7 @@ DemoRoutes.delete('/delete/:id', async (req, res) => {
     await Demo.findOneAndRemove({
         _id: req.params.id
     }).then(() => {
-        res.status(200).send({ message: "Data Delete successfull" })
+        res.status(201).send({ message: "Data Delete successfull" })
     }).catch(() => {
         res.status(400).send({ message: 'Bad Request' })
     })

@@ -13,9 +13,10 @@ const port = process.env.PORT
 /** middleware */
 app.use(cors())
 app.use(express.json())
+app.use('/uploads', express.static('uploads'))
 app.use('/demo', require('./src/module/demo/demo.controller'));
+app.use('/image', require('./src/module/imgUpload/imgUpload.controller'));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 /** end middleware */
 
 // demo url
