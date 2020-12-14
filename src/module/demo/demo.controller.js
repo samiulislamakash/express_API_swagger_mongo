@@ -54,6 +54,40 @@ DemoRoutes.get('/all', async (req, res) => {
     }
 })
 
+// read pagination
+
+DemoRoutes.get('/pagination', async (req, res) => {
+    try {
+        let { limit = 10, page = 1 } = req.query;
+        let demo;
+        let typeConform = typeof limit
+        if (typeConform != 'number' && limit.toLowerCase() == 'all') {
+            demo = Demo.find().sort({ createdAt: -1 })
+        } else {
+            if (req.query) {
+                limit = parseInt(limit); page = parseInt(page)
+            }
+            demo = Demo.find().limit(limit).skip((page - 1) * limit).sort({ createdAt: -1 })
+        }
+
+        let demos = await demo;
+
+        if (!demos) {
+            return res.status(404).send({ success: false, message: "Data not found" })
+        }
+        const totalResult = await Demo.countDocuments();
+        res.status(200).send({
+            success: true,
+            totalResults: totalResult,
+            limit: limit,
+            page: page,
+            data: demos
+        })
+    } catch (e) {
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
+    }
+})
+
 // read one
 
 DemoRoutes.get('/:id', async (req, res) => {

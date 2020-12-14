@@ -105,6 +105,28 @@
                 }
             }
         },
+        "/demo/pagination": {
+            "get": {
+                "tags": [
+                    "demo"
+                ],
+                "summary": "Get demo with paginator and reverce strategy",
+                "description": "a user can get demo with pageination",
+                "operationId": "getDemo",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DemoDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/demo/{id}": {
             "get": {
                 "tags": [

@@ -18,6 +18,8 @@ const DemoSchema = new mongoose.Schema({
     description: {
         type: String
     }
+}, {
+    timestamps: true
 })
 
 const Demo = mongoose.model('demos', DemoSchema);
