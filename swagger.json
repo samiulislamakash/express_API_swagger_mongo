@@ -24,12 +24,16 @@
             "description": "Demo api document"
         },
         {
+            "name": "user",
+            "description": "user api CURD and login , password reset"
+        },
+        {
             "name": "image",
             "description": "Demo image upload document"
         }
     ],
     "paths": {
-        "/demo/create": {
+        "/api/demo/create": {
             "post": {
                 "tags": [
                     "demo"
@@ -57,7 +61,7 @@
                 "x-codegen-request-body-name": "body"
             }
         },
-        "/demo/create/bulk": {
+        "/api/demo/create/bulk": {
             "post": {
                 "tags": [
                     "demo"
@@ -83,7 +87,7 @@
                 }
             }
         },
-        "/demo/all": {
+        "/api/demo/all": {
             "get": {
                 "tags": [
                     "demo"
@@ -105,7 +109,7 @@
                 }
             }
         },
-        "/demo/pagination": {
+        "/api/demo/pagination": {
             "get": {
                 "tags": [
                     "demo"
@@ -127,7 +131,7 @@
                 }
             }
         },
-        "/demo/{id}": {
+        "/api/demo/{id}": {
             "get": {
                 "tags": [
                     "demo"
@@ -159,7 +163,7 @@
                 }
             }
         },
-        "/demo/update/{id}": {
+        "/api/demo/update/{id}": {
             "patch": {
                 "tags": [
                     "demo"
@@ -208,7 +212,7 @@
                 }
             }
         },
-        "/demo/delete/{id}": {
+        "/api/demo/delete/{id}": {
             "delete": {
                 "tags": [
                     "demo"
@@ -231,7 +235,217 @@
                 }
             }
         },
-        "/image/create": {
+        "/api/user/create": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "User Create Operation",
+                "description": "this is can create a User",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Create User Model Object",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "User Login Operation",
+                "description": "In this section user can login ",
+                "operationId": "createLogin",
+                "requestBody": {
+                    "description": "Login User Model Object",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/user/password-reset/{id}": {
+            "patch": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update user password",
+                "discription": "a user can update her password",
+                "operationId": "updatePassword",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "you can update your old password",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "newPassword": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/api/user/all": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get all user",
+                "description": "you can get all user with filter and pagination",
+                "operationId": "getAllUser",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Find user by id",
+                "description": "A user can find one user by her id",
+                "operationId": "findUserOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/update/{id}": {
+            "patch": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "update single user",
+                "discription": "you can update single User",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "you can update user credential",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/api/user/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete user",
+                "discription": "you can delete spacific User",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/api/image/create": {
             "post": {
                 "tags": [
                     "image"
@@ -283,6 +497,21 @@
                         "type": "integer"
                     },
                     "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserDTO": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
                         "type": "string"
                     }
                 }

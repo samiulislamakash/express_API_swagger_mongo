@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const UserRoute = exporess.Router();
 
 const User = require('./user.model')
-const { updateInfoCheck, credentialCheck } = require('../../middleware/user.middleware')
+const { updateInfoCheck, credentialCheck, passwordReset } = require('../../middleware/user.middleware')
 
 // create -- as use for user registration
 
@@ -38,11 +38,35 @@ UserRoute.post('/login', credentialCheck, async (req, res) => {
                 }
 
                 res.status(200).send({ success: true, data: obj })
+            }).catch(() => {
+                res.status(400).send({ success: false, message: 'Bad Request' })
             })
+        }).catch(() => {
+            res.status(400).send({ success: false, message: 'Bad Request' })
         })
 
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
+    }
+})
+
+// change password
+
+UserRoute.patch('/password-reset/:id', passwordReset, async (req, res) => {
+    try {
+        const { password, newPassword } = req.body;
+        let hashpass = await bcrypt.hash(newPassword, 8);
+        User.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            password: hashpass
+        }).then(() => {
+            res.status(200).send({ success: true, message: "Password Update successfull" })
+        }).catch(() => {
+            res.status(400).send({ success: false, message: 'Bad Request' })
+        })
+    } catch (e) {
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -129,5 +153,3 @@ UserRoute.delete('/delete/:id', async (req, res) => {
 })
 
 module.exports = UserRoute
-
-// true false er kaj korte hobe . login method and referesh token er kaj ses korte hobe

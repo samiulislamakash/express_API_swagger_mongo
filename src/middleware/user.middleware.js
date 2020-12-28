@@ -1,4 +1,5 @@
 const User = require('../module/user/user.model')
+const bcrypt = require('bcrypt')
 
 let updateInfoCheck = function (req, res, next) {
     let key = Object.keys(req.body)
@@ -19,5 +20,21 @@ let credentialCheck = function (req, res, next) {
 }
 
 
+let passwordReset = async function (req, res, next) {
+    const { password, newPassword } = req.body;
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) {
+        return res.status(400).send({ success: false, message: 'Bad Request' });
+    }
 
-module.exports = { updateInfoCheck, credentialCheck }
+    await bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+            next();
+        } else {
+            return res.status(400).send({ success: false, message: 'Bad Request' });
+        }
+    })
+}
+
+
+module.exports = { updateInfoCheck, credentialCheck, passwordReset }
