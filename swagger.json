@@ -425,7 +425,7 @@
         "/api/user/delete/{id}": {
             "delete": {
                 "tags": [
-                    "User"
+                    "user"
                 ],
                 "summary": "Delete user",
                 "discription": "you can delete spacific User",
