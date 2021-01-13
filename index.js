@@ -17,6 +17,7 @@ app.use('/api/uploads', express.static('uploads'));
 app.use('/api/demo', require('./src/module/demo/demo.controller'));
 app.use('/api/user', require('./src/module/user/user.controller'));
 app.use('/api/image', require('./src/module/imgUpload/imgUpload.controller'));
+app.use('/api/interCommunication', require('./src/module/interCommunication/commiunication.controller'))
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 /** end middleware */
 

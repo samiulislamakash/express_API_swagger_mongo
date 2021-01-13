@@ -17,12 +17,12 @@ DemoRoutes.post('/create', async (req, res) => {
         })
 
         await demo.save().then((d) => {
-            res.status(201).send(d);
+            res.status(201).send({ success: true, data: d });
         }).catch((e) => {
-            res.status(400).send({ message: 'Bad Request' })
+            res.status(400).send({ success: false, message: 'Bad Request' })
         })
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -31,12 +31,12 @@ DemoRoutes.post('/create', async (req, res) => {
 DemoRoutes.post("/create/bulk", async (req, res) => {
     try {
         await Demo.insertMany(req.body).then((allDemo) => {
-            res.status(201).send(allDemo);
+            res.status(201).send({ success: true, data: allDemo });
         }).catch(() => {
-            res.status(400).send({ message: 'Bad Request' })
+            res.status(400).send({ success: false, message: 'Bad Request' })
         })
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -46,11 +46,11 @@ DemoRoutes.get('/all', async (req, res) => {
     try {
         const demo = await Demo.find();
         if (!demo) {
-            return res.status(404).send({ message: "Data not found" })
+            return res.status(404).send({ success: false, message: "Data not found" })
         }
-        res.status(200).send(demo)
+        res.status(200).send({ success: false, data: demo })
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -97,12 +97,12 @@ DemoRoutes.get('/:id', async (req, res) => {
         })
 
         if (!demo) {
-            return res.status(404).send({ message: "Data not found" })
+            return res.status(404).send({ success: false, message: "Data not found" })
         }
 
-        res.status(200).send(demo)
+        res.status(200).send({ success: true, data: demo })
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -115,12 +115,12 @@ DemoRoutes.patch("/update/:id", async (req, res) => {
         }, {
             $set: req.body
         }).then(() => {
-            res.status(200).send({ message: "Data Update successfull" })
+            res.status(200).send({ success: true, message: "Data Update successfull" })
         }).catch(() => {
-            res.status(400).send({ message: 'Bad Request' })
+            res.status(400).send({ success: false, message: 'Bad Request' })
         })
     } catch (e) {
-        res.status(500).send({ message: 'Internal Server Error' })
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 })
 
@@ -130,9 +130,9 @@ DemoRoutes.delete('/delete/:id', async (req, res) => {
     await Demo.findOneAndRemove({
         _id: req.params.id
     }).then(() => {
-        res.status(201).send({ message: "Data Delete successfull" })
+        res.status(201).send({ success: true, message: "Data Delete successfull" })
     }).catch(() => {
-        res.status(400).send({ message: 'Bad Request' })
+        res.status(400).send({ success: false, message: 'Bad Request' })
     })
 })
 

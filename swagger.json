@@ -30,6 +30,10 @@
         {
             "name": "image",
             "description": "Demo image upload document"
+        },
+        {
+            "name": "email",
+            "description": "Email sending api document"
         }
     ],
     "paths": {
@@ -473,6 +477,34 @@
                     "201": {}
                 }
             }
+        },
+        "/api/interCommunication/mail-send": {
+            "post": {
+                "tags": [
+                    "email"
+                ],
+                "summary": "Email Send Operation",
+                "description": "In this api you should send email.",
+                "operationId": "sendEmail",
+                "requestBody": {
+                    "description": "Send Mail in mail object",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
         }
     },
     "components": {
@@ -512,6 +544,25 @@
                         "type": "string"
                     },
                     "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "EmailDTO": {
+                "required": [
+                    "to",
+                    "subject",
+                    "text"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "string"
+                    },
+                    "subject": {
+                        "type": "string"
+                    },
+                    "text": {
                         "type": "string"
                     }
                 }
