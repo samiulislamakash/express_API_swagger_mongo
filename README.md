@@ -11,4 +11,11 @@ This project is well documented. i am use swagger ui for document my rest api.
 ### Docs
 You can find our docs 'localhost:3000/docs' in this link.
 
+#### Some Coding and Document Image
+##### Coding 
+![codeing img](./uploads/code_demo.png)
+
+##### Api Document
+![api document](./uploads/api_doc.png)
+
 
